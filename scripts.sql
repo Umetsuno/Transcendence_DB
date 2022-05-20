@@ -88,8 +88,7 @@ DELETE FROM messages WHERE user_id = '$user_id';
 SELECT * FROM rooms_admins;
 
 -- FETCH ADMINS FROM A SPECIFIC ROOM
-SELECT uid FROM room_admins WHERE room_id = '$room_id'
-JOIN users ON room_admins.user_id = users.uid;
+SELECT user_id FROM room_admins WHERE room_id = '$room_id';
 
 -- ADD ADMIN TO A SPECIFIC ROOM
 INSERT INTO room_admins (room_id, user_id)

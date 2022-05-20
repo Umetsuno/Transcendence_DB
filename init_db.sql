@@ -3,7 +3,7 @@
 CREATE DATABASE db_transcendence;
 
 -- CREATING EXTENSION FOR POSTGRESQL CRYPTO
-create extension pgcrypto;
+CREATE EXTENSION pgcrypto;
 
 -- CREATING TABLES
 -- USERS
