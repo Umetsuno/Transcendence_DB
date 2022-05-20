@@ -54,7 +54,7 @@ UPDATE rooms SET description = '$description' WHERE room_name = '$room_name';
 
 -- ADD A ROOM INTO DATABASE
 INSERT INTO rooms (room_name, description, room_password, identifiant)
-VALUES ('$room_name', '$description', '$room_password', '$identifiant');
+VALUES ('$room_name', '$description', CRYPT('$room_password', GEN_SALT('md5')), '$identifiant');
 
 -- DROP A ROOM FROM DATABASE
 DELETE FROM rooms WHERE room_name = '$room_name';
