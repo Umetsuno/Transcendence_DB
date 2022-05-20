@@ -56,6 +56,9 @@ UPDATE rooms SET description = '$description' WHERE room_name = '$room_name';
 INSERT INTO rooms (room_name, description, room_password, identifiant)
 VALUES ('$room_name', '$description', CRYPT('$room_password', GEN_SALT('md5')), '$identifiant');
 
+-- UPDATE ENCRYPTED ROOM PASSWORD
+UPDATE rooms SET room_password = CRYPT('$room_password', GEN_SALT('md5')) WHERE room_name = '$room_name';
+
 -- DROP A ROOM FROM DATABASE
 DELETE FROM rooms WHERE room_name = '$room_name';
 
