@@ -23,6 +23,12 @@ UPDATE users SET totpsecret = '$totpsecret' WHERE uid = '$uid';
 INSERT INTO matches_history (id_user1, score_user1, id_user2, score_user2, winner)
 VALUES ('$id_user1', '$score_user1', '$id_user2', '$score_user2', '$winner');
 
+-- FETCH ALL HISTORY ENTRIES
+SELECT * FROM matches_history;
+
+-- FETCH HISTORY FROM A SPECIFIC USER
+SELECT * FROM matches_history WHERE id_user1 = '$id_user1' OR id_user2 = '$id_user1';
+
 -- ADD FRIEND MUTUAL RELATIONSHIP
 INSERT INTO friendlist (id_user1, id_user2)
 VALUES ('$id_user1', '$id_user2');
@@ -40,8 +46,20 @@ VALUES ('$id_user1', '$id_user2');
 -- LIST ROOMS
 SELECT room_name FROM rooms;
 
+-- LIST ROOMS BY IDENTIFIANT
+SELECT * FROM rooms WHERE room_id = '$room_id';
+
 -- FETCH ROOM INFORMATIONS
 SELECT * FROM rooms WHERE room_name = '$room_name';
+
+-- UPDATE ROOM NAME BY IDENTIFIANT
+UPDATE rooms SET room_name = '$room_name' WHERE identifiant = '$identifiant';
+
+-- UPDATE ROOM PASSWORD BY IDENTIFIANT
+UPDATE rooms SET room_password = '$room_password' WHERE identifiant = '$identifiant';
+
+-- UPDATE ROOM DESCRIPTION BY IDENTIFIANT
+UPDATE rooms SET description = '$description' WHERE identifiant = '$identifiant';
 
 -- UPDATE ROOM NAME
 UPDATE rooms SET room_name = '$room_name' WHERE room_name = '$room_name';
@@ -63,7 +81,10 @@ UPDATE rooms SET room_password = CRYPT('$room_password', GEN_SALT('md5')) WHERE 
 DELETE FROM rooms WHERE room_name = '$room_name';
 
 -- CHECK AND AUTHENTICATE USER PASSWORD
-SELECT * FROM tbl_TestPassword WHERE password = (CRYPT('$password', password)) AND password = '$password';
+SELECT * FROM rooms WHERE room_password = (CRYPT('$room_password', room_password));
+
+-- CHECK AND AUTHENTICATE USER PASSWORD FOR A SPECIFIC ROOM
+SELECT * FROM rooms WHERE room_password = (CRYPT('$room_password', room_password)) AND identifiant = '$identifiant';
 
 -- ADD A MESSAGE INTO DATABASE
 INSERT INTO messages (room_id, user_id, content)
@@ -97,3 +118,6 @@ VALUES ('$room_id', '$user_id');
 -- REMOVE ADMIN FROM A SPECIFIC ROOM
 DELETE FROM room_admins WHERE room_id = '$room_id' AND user_id = '$user_id';
 
+-- ADD PARTICIPANT TO A SPECIFIC ROOM
+INSERT INTO participants (room_id, user_id)
+VALUES ('$room_id', '$user_id');
